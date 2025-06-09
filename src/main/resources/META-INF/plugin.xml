@@ -1,0 +1,55 @@
+<idea-plugin>
+    <id>com.leetcrawler.plugin</id>
+    <name>LeetCode Crawler</name>
+    <vendor email="support@leetcrawler.com" url="https://github.com/leetcrawler">LeetCrawler</vendor>
+
+    <description><![CDATA[
+    LeetCode 题目爬虫插件，可以：
+    - 从 LeetCode 网站爬取题目信息
+    - 获取题目描述、代码模板和示例
+    - 将代码模板插入到当前编辑器中
+    - 浏览热门题目和题解
+    ]]></description>
+
+    <change-notes><![CDATA[
+    <strong>Version 1.0.0</strong>
+    <ul>
+        <li>初始版本发布</li>
+        <li>支持题目搜索和爬取</li>
+        <li>支持代码模板插入</li>
+    </ul>
+    ]]></change-notes>
+
+    <!-- please see https://plugins.jetbrains.com/docs/intellij/build-number-ranges.html -->
+    <idea-version since-build="232" until-build="251.*"/>
+
+    <!-- please see https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
+    <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.modules.lang</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <toolWindow id="LeetCode Crawler" secondary="true" anchor="right"
+                    factoryClass="com.leetcrawler.toolwindow.LeetCodeToolWindowFactory"/>
+        
+        <!-- 注册应用级服务 -->
+        <applicationService serviceImplementation="com.leetcrawler.service.LeetCodeCrawlerService"/>
+    </extensions>
+
+    <actions>
+        <group id="LeetCodeCrawler.ActionGroup" text="LeetCode Crawler" description="LeetCode 爬虫工具">
+            <add-to-group group-id="ToolsMenu" anchor="last"/>
+            <action id="LeetCodeCrawler.SearchProblem" 
+                    class="com.leetcrawler.actions.SearchProblemAction" 
+                    text="搜索 LeetCode 题目" 
+                    description="搜索并爬取 LeetCode 题目">
+                <keyboard-shortcut keymap="$default" first-keystroke="ctrl shift L"/>
+            </action>
+            <action id="LeetCodeCrawler.InsertTemplate" 
+                    class="com.leetcrawler.actions.InsertTemplateAction" 
+                    text="插入代码模板" 
+                    description="插入 LeetCode 题目的代码模板">
+                <keyboard-shortcut keymap="$default" first-keystroke="ctrl shift I"/>
+            </action>
+        </group>
+    </actions>
+</idea-plugin> 
